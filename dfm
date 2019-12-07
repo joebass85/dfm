@@ -38,7 +38,7 @@ changed () {
 
 # Lists storage of the current directory.
 list () {
-    ls -AF $currentdir | dmenu -l $ln -i -fn $genfont 2> /dev/null
+    ls -AF $currentdir | dmenu -l $ln -i -fn $genfont &> /dev/null
     main
 }
 
