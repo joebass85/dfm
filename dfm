@@ -102,10 +102,10 @@ items="Create a New File/Directory
 Copy a File/Directory
 Move a File/Directory
 Edit a File
-Change Directory
-List
 Remove a File
+Change Directory
 Clear Trash
+List
 Exit"
 
     selection=$(echo "$items" | dmenu -l $ln -i -p 'Select an action:' -fn $genfont)
