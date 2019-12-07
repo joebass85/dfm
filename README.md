@@ -8,4 +8,5 @@ Dfm is a dmenu-based, no extra dependencies file manager. It seeks to provide a 
 At the bottom of your `~/.bashrc` file, add the following commands: `export TERMINAL=<your terminal emulator>` and `export EDITOR=<your favorite editor>`. Save and exit the file and relaunch the terminal. `cd` into the dfm directory and run `./dfm`.
 
 ## Dependencies
-The only dependency needed is `dmenu` (which I consider an essential program and not a dependency). Every other tool the script uses is supplied by the standard GNU Utilites package, along with your distrobution's terminal emulator and a text editor of some sort (be it vim, nano, leafpad, etc.)
+The only dependency needed is `dmenu` (which I consider an essential program and not a dependency). 
+Every other tool the script uses is supplied by the standard GNU Utilites package, along with your distribution's terminal emulator and a text editor of some sort (be it vim, nano, leafpad, etc.)
