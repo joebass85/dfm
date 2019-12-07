@@ -11,5 +11,5 @@ On my setup, my `.bashrc` file looks like this:
   `export TERMINAL=st` and `export EDITOR=vim`
 
 ## Dependencies
-The only dependency needed is `dmenu` (which I consider an essential program and not a dependency). 
-Every other tool the script uses is supplied by the standard GNU Utilites package, along with your distribution's terminal emulator and a text editor of some sort (be it vim, nano, leafpad, etc.)
+The only dependency needed is `dmenu` (which I consider an essential program, not a dependency). 
+Every other tool the script uses is supplied by the standard GNU Utilites package, along with your distribution's terminal emulator and a text editor of some sort (be it vim, nano, leafpad, etc.).
