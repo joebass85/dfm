@@ -101,8 +101,8 @@ main () {
 items="Create a New File/Directory
 Copy a File/Directory
 Move a File/Directory
+Remove a File/Directory
 Edit a File
-Remove a File
 Change Directory
 Clear Trash
 List
@@ -115,7 +115,7 @@ Exit"
         "Change Directory") changed;;
         "Edit a File") edit;;
         List) list;;
-        "Remove a File") trash;;
+        "Remove a File/Directory") trash;;
         "Clear Trash") clstrash;;
         "Copy a File/Directory") copy;;
         "Move a File/Directory") movefd;;
