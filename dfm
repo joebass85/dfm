@@ -31,7 +31,7 @@ changed () {
     choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont)
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		    cd $choice
-		fi
+    fi
     currentdir=$('pwd')
     main
 }
