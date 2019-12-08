@@ -11,6 +11,7 @@
 currentdir=$('pwd')
 ln=2000
 genfont="Monospace-15"
+version="1.0"
 
 # Allows editing of files.
 edit () {
@@ -124,3 +125,8 @@ Exit"
 }
 
 main
+
+if [[ "$1" == "-v" ]]; then
+	echo $version
+	exit
+fi
