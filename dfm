@@ -1,5 +1,6 @@
 #!/bin/bash
 # A dmenu-based file manager, written by Joe Diamond; email: jdiamond_11@comcast.net
+# VERSION: 1.0
 # TERMINAL, EDITOR should be defined in ~/.bashrc like this:
 
 # export TERMINAL=<your terminal name>
@@ -11,7 +12,6 @@
 currentdir=$('pwd')
 ln=2000
 genfont="Monospace-15"
-version="1.0"
 
 # Allows editing of files.
 edit () {
@@ -125,8 +125,3 @@ Exit"
 }
 
 main
-
-if [[ "$1" == "-v" ]]; then
-	echo $version
-	exit
-fi
