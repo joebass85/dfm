@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=$(ls -AlF /home/$USER/.config | grep "dfm/")
+dir=$(ls -AF /home/$USER/.config | grep "dfm/")
 
 if [[ "$dir" == "dfm/" ]]; then
     echo
