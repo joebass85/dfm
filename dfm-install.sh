@@ -1,5 +1,14 @@
 #!/bin/bash
 
+dir3=$(ls /usr/bin/ | grep dmenu)
+
+if [[ "$dir3" == "" ]]; then
+    echo
+    echo "Please install dmenu."
+    echo
+    exit
+fi
+
 dir=$(ls -AF /home/$USER/.config/ | grep "dfm/")
 
 if [[ "$dir" == "dfm/" ]]; then
