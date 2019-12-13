@@ -1,6 +1,5 @@
 #!/bin/bash
 # A dmenu-based file manager, written by Joe Diamond; email: jdiamond_11@comcast.net
-# VERSION: 1.0
 # TERMINAL, EDITOR should be defined in ~/.bashrc like this:
 
 # export TERMINAL=<your terminal name>
@@ -19,9 +18,7 @@ edit () {
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		    terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 		    editor=$(awk '/EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
-		    if [[ "$terminal" == "$terminal" ]]; then
-				    $terminal -e $editor $choice
-		    fi
+		    $terminal -e $editor $choice
     fi
     main
 }
@@ -32,7 +29,7 @@ changed () {
     choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont)
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		    cd $choice
-    fi
+		fi
     currentdir=$('pwd')
     main
 }
