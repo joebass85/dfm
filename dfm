@@ -10,7 +10,7 @@
 
 # Defining necessary variables not already defined.
 currentdir=$('pwd')
-ln=2000
+ln=40
 genfont="Monospace-15"
 
 # Allows editing of files.
