@@ -93,6 +93,16 @@ movefd () {
     main
 }
 
+# Allows the user to execute terminal commads; Good for compiling a file after editing, but not things like ls
+execute () {
+	terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
+	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
+		$terminal -e $comm 2> /dev/null
+	fi
+	main
+}
+
 # Main function for the program
 main () {
 
@@ -103,22 +113,24 @@ Remove a File/Directory
 Edit a File
 Change Directory
 Clear Trash
+Command
 List
 Exit"
 
-    selection=$(echo "$items" | dmenu -l $ln -i -p 'Select an action:' -fn $genfont)
+selection=$(echo "$items" | dmenu -l $ln -i -p 'Select an action:' -fn $genfont)
 
-    case "$selection" in
-        "Create a New File/Directory") newfd;;
-        "Change Directory") changed;;
-        "Edit a File") edit;;
-        List) list;;
-        "Remove a File/Directory") trash;;
-        "Clear Trash") clstrash;;
-        "Copy a File/Directory") copy;;
-        "Move a File/Directory") movefd;;
-        Exit) exit;;
-    esac
+	case "$selection" in
+		"Create a New File/Directory") newfd;;
+		"Change Directory") changed;;
+		"Edit a File") edit;;
+		List) list;;
+		"Remove a File/Directory") trash;;
+		"Clear Trash") clstrash;;
+		"Copy a File/Directory") copy;;
+		"Move a File/Directory") movefd;;
+		Command) execute;;
+		Exit) exit;;
+	esac
 }
 
 main
