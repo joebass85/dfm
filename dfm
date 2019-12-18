@@ -18,7 +18,7 @@ edit () {
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		    terminal=$(/usr/bin/awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | /usr/bin/cut -c 10-)
 		    editor=$(/usr/bin/awk '/EDITOR/ {print $2}' /home/$USER/.bashrc | /usr/bin/cut -c 8-)
-		    $terminal -e $editor $choice
+		    $terminal -e $editor $choice 2> /dev/null
     fi
     main
 }
@@ -26,7 +26,7 @@ edit () {
 # Presents choices of available directories to cd into.
 changed () {
     lsdir=$(/usr/bin/ls -aF $currentdir | /usr/bin/grep "/")
-    choice=$(/usr/bin/echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p "Current directory is: $currentdir")
+    choice=$(/usr/bin/echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p "Current directory is $currentdir/:")
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		    cd $choice
 		fi
@@ -36,7 +36,7 @@ changed () {
 
 # Lists storage of the current directory.
 list () {
-    /usr/bin/ls -AF $currentdir | dmenu -l $ln -i -fn $genfont -p "Contents of: $currentdir" &> /dev/null
+    /usr/bin/ls -AF $currentdir | dmenu -l $ln -i -fn $genfont -p "Contents of $currentdir/:" &> /dev/null
     main
 }
 
