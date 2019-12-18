@@ -26,7 +26,7 @@ edit () {
 # Presents choices of available directories to cd into.
 changed () {
     lsdir=$(/usr/bin/ls -aF $currentdir | /usr/bin/grep "/")
-    choice=$(/usr/bin/echo "$lsdir" | dmenu -l $ln -i -fn $genfont)
+    choice=$(/usr/bin/echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p "Current directory is: $currentdir")
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		    cd $choice
 		fi
@@ -36,7 +36,7 @@ changed () {
 
 # Lists storage of the current directory.
 list () {
-    /usr/bin/ls -AF $currentdir | dmenu -l $ln -i -fn $genfont &> /dev/null
+    /usr/bin/ls -AF $currentdir | dmenu -l $ln -i -fn $genfont -p "Contents of: $currentdir" &> /dev/null
     main
 }
 
