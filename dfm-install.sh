@@ -28,9 +28,11 @@ dir2=$(ls -AF /home/$USER/ | grep "bin/")
 
 if [[ "$dir2" == "bin/" ]]; then
     echo
+    pushd dfm &> /dev/null
     echo "Copying dfm to /home/$USER/bin/dfm"
     cp dfm /home/$USER/bin/dfm
     sleep 1
+    popd &> /dev/null
     echo
     echo "All Done..."
 else
