@@ -50,9 +50,6 @@ if [[ "$term" == "" ]]; then
     echo
     echo "Please define your terminal emulator in your ~/.bashrc file like this:"
     echo "  export TERMINAL=<your terminal emulator>"
-else
-    echo
-    echo "All done..."
 fi
 
 edit=$(awk '/export EDITOR/ {print $2}' /home/$USER/.bashrc)
@@ -61,9 +58,5 @@ if [[ "$edit" == "" ]]; then
     echo
     echo "Please define your editor in your ~/.bashrc file like this:"
     echo "  export EDITOR=<your text editor>"
-    echo
-else
-    echo
-    echo "All done..."
     echo
 fi
