@@ -16,9 +16,9 @@ genfont="Monospace-15"
 edit () {
     choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -i -p 'Pick a file to edit.' -fn $genfont)
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-		    terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
-		    editor=$(awk '/EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
-		    $terminal -e $editor $choice 2> /dev/null
+		terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+		editor=$(awk '/EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
+		$terminal -e $editor $choice 2> /dev/null
     fi
     main
 }
@@ -27,9 +27,7 @@ edit () {
 changed () {
     lsdir=$(ls -aF $currentdir | grep "/")
     choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p "Current directory is $currentdir/:")
-    if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-		    cd $choice
-		fi
+    if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then cd $choice; fi
     currentdir=$('pwd')
     main
 }
@@ -44,9 +42,7 @@ list () {
 trash () {
     lsdir=$(ls -AF $currentdir)
     choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p 'Remove which file?')
-    if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-		    mv -f $choice /home/$USER/.config/dfm/
-    fi
+    if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mv -f $choice /home/$USER/.config/dfm/; fi
     main
 }
 
@@ -55,8 +51,8 @@ newfd () {
     choice=$(echo '' | dmenu -fn $genfont -p 'Enter a filename and press Enter.')
     var=$(echo '' | dmenu -fn $genfont -i -p 'Is this a directory? [Y/N]')
     case "$var" in
-			    Y|y) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mkdir $choice; fi;;
-			    N|n) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then touch $choice; fi;;
+		Y|y) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mkdir $choice; fi;;
+		N|n) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then touch $choice; fi;;
     esac
     main
 }
@@ -65,8 +61,8 @@ newfd () {
 clstrash () {
     var=$(echo '' | dmenu -fn $genfont -i -p 'Are you sure? [Y/N]')
     case "$var" in
-		    Y|y) rm -rf /home/$USER/.config/dfm/*;;
-		    *) main;;
+		Y|y) rm -rf /home/$USER/.config/dfm/*;;
+		*) main;;
     esac
     main
 }
@@ -77,8 +73,8 @@ copy () {
     name=$(echo '' | dmenu -fn $genfont -p 'Pick a name for the new file.')
     dir=$(echo '' | dmenu -fn $genfont -p 'Is the file being copied a directory?')
     case "$dir" in
-		    Y|y) cp -R $choice $name;;
-		    *) cp $choice $name;;
+    		Y|y) cp -R $choice $name;;
+		*) cp $choice $name;;
     esac
     main
 }
@@ -87,9 +83,7 @@ copy () {
 movefd () {
     choice=$(ls -AF "$currentdir" | dmenu -l $ln -fn $genfont -i -p 'Pick a file to move:')
     path=$(echo '' | dmenu -fn $genfont -i -p 'Give the absolute path to where you would like to move this file to')
-    if [[ ! "$choice " == "" && "$choice" == "$choice" ]]; then
-		    mv -f $choice $path
-    fi
+    if [[ ! "$choice " == "" && "$choice" == "$choice" ]]; then mv -f $choice $path; fi
     main
 }
 
@@ -97,15 +91,14 @@ movefd () {
 execute () {
 	terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
-	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
-		$terminal -e $comm 2> /dev/null
-	fi
+	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then $terminal -e $comm 2> /dev/null; fi
 	main
 }
 
 # Main function for the program
 main () {
 
+# Add in names of functions from the case statement below to enable additional built-in functions here
 items="Create a New File/Directory
 Copy a File/Directory
 Move a File/Directory
