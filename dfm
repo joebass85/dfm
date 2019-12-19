@@ -113,7 +113,6 @@ Remove a File/Directory
 Edit a File
 Change Directory
 Clear Trash
-Command
 List
 Exit"
 
