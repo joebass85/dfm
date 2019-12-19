@@ -119,18 +119,18 @@ Exit"
 
 selection=$(echo "$items" | dmenu -l $ln -i -p 'Select an action:' -fn $genfont)
 
-	case "$selection" in
-		"Create a New File/Directory") newfd;;
-		"Change Directory") changed;;
-		"Edit a File") edit;;
-		List) list;;
-		"Remove a File/Directory") trash;;
-		"Clear Trash") clstrash;;
-		"Copy a File/Directory") copy;;
-		"Move a File/Directory") movefd;;
-		Command) execute;;
-		Exit) exit;;
-	esac
+case "$selection" in
+	"Create a New File/Directory") newfd;;
+	"Change Directory") changed;;
+	"Edit a File") edit;;
+	List) list;;
+	"Remove a File/Directory") trash;;
+	"Clear Trash") clstrash;;
+	"Copy a File/Directory") copy;;
+	"Move a File/Directory") movefd;;
+	Command) execute;;
+	Exit) exit;;
+esac
 }
 
 main
