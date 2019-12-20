@@ -89,7 +89,7 @@ movefd () {
 
 # Allows the user to execute terminal commands; Good for compiling files after editing, but not for things like ls
 execute () {
-	terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+	terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
 	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then $terminal -e $comm 2> /dev/null; fi
 	main
