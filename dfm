@@ -73,7 +73,7 @@ copy () {
     name=$(echo '' | dmenu -fn $genfont -p 'Pick a name for the new file.')
     dir=$(echo '' | dmenu -fn $genfont -p 'Is the file being copied a directory?')
     case "$dir" in
-    		Y|y) cp -R $choice $name;;
+		Y|y) cp -R $choice $name;;
 		*) cp $choice $name;;
     esac
     main
