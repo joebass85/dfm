@@ -16,8 +16,8 @@ genfont="Monospace-15"
 edit () {
     choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -i -p 'Pick a file to edit.' -fn $genfont)
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-		terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
-		editor=$(awk '/EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
+		terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+		editor=$(awk '/export EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
 		$terminal -e $editor $choice 2> /dev/null
     fi
     main
