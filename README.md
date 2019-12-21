@@ -14,5 +14,6 @@ Every other tool the script uses is supplied by the standard GNU Utilites packag
 
 ## How to Customize dfm
 There are built-in functions that are not enabled by default in dfm. You can enable them by adding the function name from the case statement to the `items` array in the main function of the script (at the bottom). Then, reload `dfm` to enable them.
-As of Dec. 19, 2019, the disabled fucnctions include:
+As of Dec. 20, 2019, the disabled fucnctions include:
 	`Command`
+	`View File Permissions`
