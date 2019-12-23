@@ -9,7 +9,7 @@ if [[ "$dir3" == "" ]]; then
     exit
 fi
 
-dir=$(ls -AF /home/$USER/.config/ | grep "dfm/")
+dir=$(ls /home/$USER/.config/ | grep "dfm/")
 
 if [[ "$dir" == "dfm/" ]]; then
     echo
@@ -24,7 +24,7 @@ else
     echo "All Done..."
 fi
 
-dir2=$(ls -AF /home/$USER/ | grep "bin/")
+dir2=$(ls /home/$USER/ | grep "bin/")
 
 if [[ "$dir2" == "bin/" ]]; then
     echo
@@ -44,6 +44,36 @@ else
     cp dfm /home/$USER/bin/dfm
     echo
     echo "All Done..."
+fi
+
+dir4=$(ls -A /home/$USER/.config/dfm | grep .bkmks)
+
+if [[ "$dir4" == ".bkmks" ]]; then
+	echo
+	echo "All Done..."
+else
+	echo
+	echo "Creating empty bookmarks file."
+	echo
+	pushd /home/$USER/.config/dfm &> /dev/null
+	touch .bkmks
+	popd &> /dev/null
+	echo "All Done..."
+fi
+
+dir5=$(ls -AF /home/$USER/.config/dfm/ | grep "trash/")
+
+if [[ "$dir5" == "trash/" ]]; then
+	echo
+	echo "All Done..."
+else
+	echo
+	echo "Creating a trash folder at /home/$USER/.config/dfm/trash"
+	echo
+	pushd /home/$USER/.config/dfm/ &> /dev/null
+	mkdir trash
+	popd &> /dev/null
+	echo "All Done..."
 fi
 
 term=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc)
