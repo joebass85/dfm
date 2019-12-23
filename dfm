@@ -109,6 +109,13 @@ fperm () {
 	ls -l $choice | dmenu -fn $genfont -l 1 &> /dev/null
 	main
 }
+
+# Allows user to view contents of the trash folder /home/$USER/.config/dfm
+viewtrash () {
+	ls -A /home/$USER/.config/dfm | dmenu -l $ln -fn $genfont -p 'Deleted Files:' &> /dev/null
+	main
+}
+
 # Main function for the program
 main () {
 
@@ -136,6 +143,7 @@ case "$selection" in
 	"Move a File/Directory") movefd;;
 	Command) execute;;
 	"View File Permissions") fperm;;
+	"View Trash") viewtrash;;
 	Exit) exit;;
 esac
 }
