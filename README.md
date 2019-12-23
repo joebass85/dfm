@@ -18,4 +18,4 @@ As of Dec. 20, 2019, the disabled fucnctions include:
 	`Command`, `View File Permissions`, `View Trash`
 
 ## Notes
-`- Dfm will not delete/move any files owned by other users/root user.`
+- Dfm will not delete/move any files owned by other users/root user.
