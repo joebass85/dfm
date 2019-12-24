@@ -33,8 +33,8 @@ changed () {
     choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p "Current directory is $currentdir:")
     if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 	    cd $choice
+		currentdir=$('pwd')
     fi
-    currentdir=$('pwd')
     main
 }
 
@@ -145,6 +145,36 @@ clsbkmk () {
 	main
 }
 
+#### Allows the user to change to a specified bookmark - not yet finished
+####chbkmk () {
+####	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
+####	choice=$(echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont -p 'Pick a bookmark to change to:' &> /dev/null)
+####	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
+####		cd $choice
+####		currentdir=$('pwd')
+####	fi
+####	main
+####}
+
+# Bookmark function that displays a submenu just for bookmarks
+bkmks () {
+
+# Add "Change to Bookmark" to this list once finished
+	items="Bookmark This Directory
+View Bookmarks
+Clear Bookmarks"
+
+	choice=$(echo "$items" | dmenu -l $ln -fn $genfont -p 'Select an Action:')
+	case "$choice" in
+		"Bookmark This Directory") bkmk;;
+		"View Bookmarks") viewbkmk;;
+		"Clear Bookmarks") clsbkmk;;
+		"Change to Bookmark") chbkmk;;
+		*) main;;
+	esac
+	main
+}
+
 # Main function for the program
 main () {
 
@@ -153,8 +183,8 @@ items="Create a New File/Directory
 Copy a File/Directory
 Move a File/Directory
 Remove a File/Directory
-Edit a File
 Change Directory
+Edit a File
 Clear Trash
 List
 Exit"
@@ -172,10 +202,8 @@ case "$selection" in
 	"Move a File/Directory") movefd;;
 	Command) execute;;
 	"View File Permissions") fperm;;
+	Bookmarks) bkmks;;
 	"View Trash") viewtrash;;
-	"Bookmark This Folder") bkmk;;
-	"View Bookmarks") viewbkmk;;
-	"Clear Bookmarks") clsbkmk;;
 	Exit) exit;;
 esac
 }
