@@ -25,4 +25,4 @@ As of Dec. 23, 2019, the disabled fucnctions include:
 
 ## Notes
 - Dfm will not delete/move any files owned by other users/root user.
-- Move can alos be used to rename files.
+- Move can also be used to rename files.
