@@ -5,7 +5,7 @@
 # export TERMINAL=<your terminal name>
 # export EDITOR=<editor name>
 
-# Dependencies: dmenu, grep, awk, cut, terminal emulator, text editor
+# Dependencies: dmenu, grep, awk, cut, uniq, terminal emulator, text editor
 
 # Defining necessary variables not already defined.
 currentdir=$('pwd')
@@ -131,7 +131,7 @@ bkmk () {
 # View all bookmarks set
 viewbkmk () {
 	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
-	echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont &> /dev/null
+	echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Bookmarked Folders:' &> /dev/null
 	main
 }
 
@@ -145,35 +145,31 @@ clsbkmk () {
 	main
 }
 
-#### Allows the user to change to a specified bookmark - not yet finished
-#### The main issue is how to cd the $currentdir in the main script
-#chbkmk () {
-#	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
-#	choice=$(echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont -p 'Pick a bookmark to change to:' &> /dev/null)
-#	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-#		cd $choice
-#		currentdir=$('pwd')
-#	fi
-#	main
-#}
+# Allows the user to change to a specified bookmark
+chbkmk () {
+	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
+	choice=$(echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Pick a bookmark to change to:')
+	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then cd $choice; fi
+	currentdir=$('pwd')
+	main
+}
 
 # Bookmark function that displays a submenu just for bookmarks
 bkmks () {
-
-# Add "Change to Bookmark" to this array when the function chbkmk is complete
-	items="Bookmark This Directory
+	items="Bookmark This Folder
 View Bookmarks
-Clear Bookmarks"
+Clear Bookmarks
+Change to Bookmark
+Return to Main Menu"
 
-	choice=$(echo "$items" | dmenu -l $ln -fn $genfont -p 'Select an Action:')
+	choice=$(echo "$items" | dmenu -i -l $ln -fn $genfont -p 'Select an Action:')
 	case "$choice" in
-		"Bookmark This Directory") bkmk;;
+		"Bookmark This Folder") bkmk;;
 		"View Bookmarks") viewbkmk;;
 		"Clear Bookmarks") clsbkmk;;
 		"Change to Bookmark") chbkmk;;
-		*) main;;
+		"Return to Main Menu") main;;
 	esac
-	main
 }
 
 # Main function for the program
@@ -184,9 +180,8 @@ items="Create a New File/Directory
 Copy a File/Directory
 Move a File/Directory
 Remove a File/Directory
-Bookmarks
-Edit a File
 Change Directory
+Edit a File
 Clear Trash
 List
 Exit"
@@ -203,8 +198,8 @@ case "$selection" in
 	"Copy a File/Directory") copy;;
 	"Move a File/Directory") movefd;;
 	Command) execute;;
-	"View File Permissions") fperm;;
 	Bookmarks) bkmks;;
+	"View File Permissions") fperm;;
 	"View Trash") viewtrash;;
 	Exit) exit;;
 esac
