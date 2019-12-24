@@ -146,20 +146,21 @@ clsbkmk () {
 }
 
 #### Allows the user to change to a specified bookmark - not yet finished
-####chbkmk () {
-####	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
-####	choice=$(echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont -p 'Pick a bookmark to change to:' &> /dev/null)
-####	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-####		cd $choice
-####		currentdir=$('pwd')
-####	fi
-####	main
-####}
+#### The main issue is how to cd the $currentdir in the main script
+#chbkmk () {
+#	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
+#	choice=$(echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont -p 'Pick a bookmark to change to:' &> /dev/null)
+#	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
+#		cd $choice
+#		currentdir=$('pwd')
+#	fi
+#	main
+#}
 
 # Bookmark function that displays a submenu just for bookmarks
 bkmks () {
 
-# Add "Change to Bookmark" to this list once finished
+# Add "Change to Bookmark" to this array when the function chbkmk is complete
 	items="Bookmark This Directory
 View Bookmarks
 Clear Bookmarks"
@@ -183,8 +184,9 @@ items="Create a New File/Directory
 Copy a File/Directory
 Move a File/Directory
 Remove a File/Directory
-Change Directory
+Bookmarks
 Edit a File
+Change Directory
 Clear Trash
 List
 Exit"
