@@ -48,9 +48,7 @@ list () {
 trash () {
     lsdir=$(ls -AF $currentdir)
     choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p 'Remove which file?')
-    if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-	mv -f $choice /home/$USER/.config/dfm/trash/
-    fi
+    if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mv -f $choice /home/$USER/.config/dfm/trash/; fi
     main
 }
 
@@ -59,7 +57,7 @@ newfd () {
     choice=$(echo '' | dmenu -fn $genfont -p 'Enter a filename and press Enter.')
     var=$(echo '' | dmenu -fn $genfont -i -p 'Is this a directory? [Y/N]')
     case "$var" in
-	Y|y) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mkdir $choice; fi;;
+		Y|y) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mkdir $choice; fi;;
         N|n) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then touch $choice; fi;;
     esac
     main
@@ -69,8 +67,8 @@ newfd () {
 clstrash () {
     var=$(echo '' | dmenu -fn $genfont -i -p 'Are you sure? [Y/N]')
     case "$var" in
-	Y|y) rm -rf /home/$USER/.config/dfm/trash/*;;
-	*) main;;
+		Y|y) rm -rf /home/$USER/.config/dfm/trash/*;;
+		*) main;;
     esac
     main
 }
@@ -81,8 +79,8 @@ copy () {
     name=$(echo '' | dmenu -fn $genfont -p 'Pick a name for the new file.')
     dir=$(echo '' | dmenu -fn $genfont -p 'Is the file being copied a directory?')
     case "$dir" in
-	Y|y) cp -R $choice $name;;
-	*) cp $choice $name;;
+		Y|y) cp -R $choice $name;;
+		*) cp $choice $name;;
     esac
     main
 }
@@ -91,9 +89,7 @@ copy () {
 movefd () {
     choice=$(ls -AF "$currentdir" | dmenu -l $ln -fn $genfont -i -p 'Pick a file to move:')
     path=$(echo '' | dmenu -fn $genfont -i -p 'Give the absolute path to where you would like to move this file to')
-    if [[ ! "$choice " == "" && "$choice" == "$choice" ]]; then
-	mv -f $choice $path
-    fi
+    if [[ ! "$choice " == "" && "$choice" == "$choice" ]]; then mv -f $choice $path; fi
     main
 }
 
@@ -101,9 +97,7 @@ movefd () {
 execute () {
 	terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
-	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
-		$terminal -e $comm 2> /dev/null
-	fi
+	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then $terminal -e $comm 2> /dev/null; fi
 	main
 }
 
@@ -125,14 +119,12 @@ bkmk () {
 	bkmk="/home/$USER/.config/dfm/.bkmks"
 	currentdir=$('pwd')
 	echo $currentdir >> $bkmk
-	main
 }
 
 # View all bookmarks set
 viewbkmk () {
 	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
 	echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Bookmarked Folders:' &> /dev/null
-	main
 }
 
 # Clears out any previously set bookmarks
@@ -140,9 +132,8 @@ clsbkmk () {
 	choice=$(echo '' | dmenu -p "Are you sure? [Y/N]" -fn $genfont)
 	case "$choice" in
 		Y|y) rm /home/$USER/.config/dfm/.bkmks; touch /home/$USER/.config/dfm/.bkmks;;
-		*) main;;
+		*) bkmks;;
 	esac
-	main
 }
 
 # Allows the user to change to a specified bookmark
@@ -151,7 +142,6 @@ chbkmk () {
 	choice=$(echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Pick a bookmark to change to:')
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then cd $choice; fi
 	currentdir=$('pwd')
-	main
 }
 
 # Bookmark function that displays a submenu just for bookmarks
@@ -164,10 +154,10 @@ Return to Main Menu"
 
 	choice=$(echo "$items" | dmenu -i -l $ln -fn $genfont -p 'Select an Action:')
 	case "$choice" in
-		"Bookmark This Folder") bkmk;;
-		"View Bookmarks") viewbkmk;;
-		"Clear Bookmarks") clsbkmk;;
-		"Change to Bookmark") chbkmk;;
+		"Bookmark This Folder") bkmk; bkmks;;
+		"View Bookmarks") viewbkmk; bkmks;;
+		"Clear Bookmarks") clsbkmk; bkmks;;
+		"Change to Bookmark") chbkmk; bkmks;;
 		"Return to Main Menu") main;;
 	esac
 }
