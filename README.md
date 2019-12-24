@@ -25,3 +25,4 @@ View Command History
 
 ## Notes
 - Dfm will not delete/move any files owned by other users/root user.
+- Move can alos be used to rename files.
