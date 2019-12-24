@@ -5,7 +5,7 @@
 # export TERMINAL=<your terminal name>
 # export EDITOR=<editor name>
 
-# Dependencies: dmenu, grep, awk, cut, uniq, terminal emulator, text editor
+# Dependencies: dmenu, grep, awk, cut, uniq, tail, terminal emulator, text editor
 
 # Defining necessary variables not already defined.
 currentdir=$('pwd')
@@ -97,7 +97,10 @@ movefd () {
 execute () {
 	terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
-	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then $terminal -e $comm 2> /dev/null; fi
+	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
+		echo $comm >> /home/$USER/.config/dfm/.commhist
+		$terminal -e $comm 2> /dev/null
+	fi
 	main
 }
 
@@ -121,7 +124,7 @@ bkmk () {
 	echo $currentdir >> $bkmk
 }
 
-# View all bookmarks set
+# View all bookmarks set in /home/$USER/.config/dfm/.bkmks
 viewbkmk () {
 	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
 	echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Bookmarked Folders:' &> /dev/null
@@ -162,14 +165,20 @@ Return to Main Menu"
 	esac
 }
 
+# View Command History (only last 10 commands)
+vcomm () {
+	tail /home/$USER/.config/dfm/.commhist | dmenu -l $ln -fn $genfont -p 'Last 10 Commands:' &> /dev/null
+	main
+}
+
 # Main function for the program
 main () {
 
 # Add disabled function names here from the case statement below.
 items="Create a New File/Directory
+Remove a File/Directory
 Copy a File/Directory
 Move a File/Directory
-Remove a File/Directory
 Change Directory
 Edit a File
 Clear Trash
@@ -191,6 +200,7 @@ case "$selection" in
 	Bookmarks) bkmks;;
 	"View File Permissions") fperm;;
 	"View Trash") viewtrash;;
+	"View Command History") vcomm;;
 	Exit) exit;;
 esac
 }
