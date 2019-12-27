@@ -16,8 +16,8 @@ genfont="Monospace-15"
 edit () {
 	choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -i -p 'Pick a file to edit.' -fn $genfont)
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-		terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
-		editor=$(awk '/EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
+		terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+		editor=$(awk '/export EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
 		if [[ "$editor" == "vim" || "$editor" == "nano" || "$editor" == "vi" ]]; then
 			$terminal -e $editor $choice &> /dev/null
 		else
@@ -95,11 +95,11 @@ movefd () {
 
 # Allows the user to execute terminal commands; Good for compiling files after editing, but not for things like ls
 execute () {
-	terminal=$(awk '/TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+	terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
 	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
 		echo $comm >> /home/$USER/.config/dfm/.commhist
-		$terminal -e $comm 2> /dev/null
+		$terminal -e $comm
 	fi
 	main
 }
