@@ -107,7 +107,7 @@ execute () {
 # Allows user to view permissions of a file.
 fperm () {
 	choice=$(ls -AF "$currentdir" | grep -v "/" | dmenu -l $ln -fn $genfont -i -p 'Pick a file to view permissions:')
-	ls -l $choice | dmenu -fn $genfont -l 1 &> /dev/null
+	ls -la $choice | dmenu -fn $genfont -l 1 &> /dev/null
 	main
 }
 
@@ -127,7 +127,7 @@ bkmk () {
 # View all bookmarks set in /home/$USER/.config/dfm/.bkmks
 viewbkmk () {
 	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
-	echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Bookmarked Folders:' &> /dev/null
+	echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont -p 'Bookmarked Folders:' &> /dev/null
 }
 
 # Clears out any previously set bookmarks
