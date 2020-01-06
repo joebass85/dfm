@@ -11,6 +11,7 @@
 currentdir=$('pwd')
 ln=40
 genfont="Monospace-15"
+ver="1.0"
 
 # Allows editing of files.
 edit () {
@@ -251,9 +252,13 @@ case "$selection" in
 esac
 }
 
-case "$1" in
-	"-v"|"--version") echo "	Version 1.0"; exit;;
+case "$@" in
+	"-v"|"--version") echo "	Version $ver"; exit;;
 	"-h"|"--help") helper; exit;;
+	"-hv") helper; echo "	Version $ver"; exit;;
+	"--help --version") helper; echo "	Version $ver"; exit;;
+	"-vh") helper; echo "	Version $ver"; exit;;
+	*) main;;
 esac
 
 main
