@@ -213,6 +213,7 @@ Notes
 Command Options
 -v or --version --> returns the version number.
 -h or --help --> returns this help section.
+-vh or -hv --> returns both the version number and help section.
 
 _EOF_
 }
