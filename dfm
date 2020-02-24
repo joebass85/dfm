@@ -11,7 +11,7 @@
 currentdir=$('pwd')
 ln=40
 genfont="Monospace-15"
-ver="1.0"
+ver="1.1"
 
 # Allows editing of files.
 edit () {
