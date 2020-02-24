@@ -252,13 +252,13 @@ case "$selection" in
 esac
 }
 
-case "$@" in
-	"-v"|"--version") echo "	Version $ver"; exit;;
-	"-h"|"--help") helper; exit;;
-	"-hv") helper; echo "	Version $ver"; exit;;
-	"--help --version") helper; echo "	Version $ver"; exit;;
-	"-vh") helper; echo "	Version $ver"; exit;;
-	*) main;;
-esac
-
+# Argument Handling
+while [[ "$1" != "" ]]; do
+	case "$1" in
+		-v | --version) shift;echo "	Version $ver"; exit;;
+		-h | --help) shift;helper; exit;;
+		-hv | -vh) shift;helper; echo "	Version $ver"; exit;;
+		*) echo "Not a valid argument.";exit;;
+	esac
+done
 main
