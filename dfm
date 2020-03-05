@@ -12,13 +12,13 @@ currentdir=$('pwd')
 ln=40
 genfont="Monospace-15"
 ver="1.1"
+terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
+editor=$(awk '/export EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
 
 # Allows editing of files.
 edit () {
 	choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -i -p 'Pick a file to edit.' -fn $genfont)
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
-		terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
-		editor=$(awk '/export EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
 		if [[ "$editor" == "vim" || "$editor" == "nano" || "$editor" == "vi" ]]; then
 			$terminal -e $editor $choice &> /dev/null
 		else
@@ -96,7 +96,6 @@ movefd () {
 
 # Allows the user to execute terminal commands; Good for compiling files after editing, but not for things like ls
 execute () {
-	terminal=$(awk '/export TERMINAL/ {print $2}' /home/$USER/.bashrc | cut -c 10-)
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
 	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
 		echo $comm >> /home/$USER/.config/dfm/.commhist
