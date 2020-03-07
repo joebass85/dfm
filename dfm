@@ -49,7 +49,11 @@ list () {
 trash () {
 	lsdir=$(ls -AF $currentdir)
 	choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p 'Remove which file?')
-	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mv -f $choice /home/$USER/.config/dfm/trash/; fi
+	var=$(echo '' | dmenu -fn $genfont -i -p 'Are you sure? [Y/N]')
+	case "$var" in
+		Y|y) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mv -f $choice /home/$USER/.config/dfm/trash/; fi;;
+		*) main;;
+	esac
 	main
 }
 
