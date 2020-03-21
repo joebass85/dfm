@@ -166,6 +166,7 @@ Return to Main Menu"
 		"Clear Bookmarks") clsbkmk; bkmks;;
 		"Change to Bookmark") chbkmk; bkmks;;
 		"Return to Main Menu") main;;
+		*) bkmks;;
 	esac
 }
 
@@ -253,6 +254,7 @@ case "$selection" in
 	"View Command History") vcomm;;
 	"Clear Command History") ccomm;;
 	Exit) exit;;
+	*) main;;
 esac
 }
 
