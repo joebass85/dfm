@@ -17,7 +17,7 @@ editor=$(awk '/export EDITOR/ {print $2}' /home/$USER/.bashrc | cut -c 8-)
 
 # Allows editing of files.
 edit () {
-	choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -i -p 'Pick a file to edit.' -fn $genfont)
+	choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -p 'Pick a file to edit.' -fn $genfont)
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		if [[ "$editor" == "vim" || "$editor" == "nano" || "$editor" == "vi" ]]; then
 			$terminal -e $editor $choice &> /dev/null
@@ -31,7 +31,7 @@ edit () {
 # Presents choices of available directories to cd into.
 changed () {
 	lsdir=$(ls -aF $currentdir | grep "/")
-	choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p "Current directory is $currentdir:")
+	choice=$(echo "$lsdir" | dmenu -l $ln -fn $genfont -p "Current directory is $currentdir:")
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		cd $choice
 		currentdir=$('pwd')
@@ -48,7 +48,7 @@ list () {
 # Moves specified file/directory to ~/.config/dfm/ to be held until the Clear Trash command is run.
 trash () {
 	lsdir=$(ls -AF $currentdir)
-	choice=$(echo "$lsdir" | dmenu -l $ln -i -fn $genfont -p 'Remove which file?')
+	choice=$(echo "$lsdir" | dmenu -l $ln -fn $genfont -p 'Remove which file?')
 	var=$(echo '' | dmenu -fn $genfont -i -p 'Are you sure? [Y/N]')
 	case "$var" in
 		Y|y) if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then mv -f $choice /home/$USER/.config/dfm/trash/; fi;;
@@ -80,7 +80,7 @@ clstrash () {
 
 # Copies the selected file/directory to the specified location.
 copy () {
-	choice=$(ls -Ap "$currentdir" | dmenu -l $ln -fn $genfont -i -p 'Pick a file to copy')
+	choice=$(ls -Ap "$currentdir" | dmenu -l $ln -fn $genfont -p 'Pick a file to copy')
 	name=$(echo '' | dmenu -fn $genfont -p 'Pick a name for the new file.')
 	dir=$(echo '' | dmenu -fn $genfont -p 'Is the file being copied a directory?')
 	case "$dir" in
@@ -92,8 +92,8 @@ copy () {
 
 # Moves the specified file/directory to the new location $path.
 movefd () {
-	choice=$(ls -AF "$currentdir" | dmenu -l $ln -fn $genfont -i -p 'Pick a file to move:')
-	path=$(echo '' | dmenu -fn $genfont -i -p 'Give the absolute path to where you would like to move this file to')
+	choice=$(ls -AF "$currentdir" | dmenu -l $ln -fn $genfont -p 'Pick a file to move:')
+	path=$(echo '' | dmenu -fn $genfont -p 'Give the absolute path to where you would like to move this file to')
 	if [[ ! "$choice " == "" && "$choice" == "$choice" ]]; then mv -f $choice $path; fi
 	main
 }
@@ -110,7 +110,7 @@ execute () {
 
 # Allows user to view permissions of a file.
 fperm () {
-	choice=$(ls -AF "$currentdir" | grep -v "/" | dmenu -l $ln -fn $genfont -i -p 'Pick a file to view permissions:')
+	choice=$(ls -AF "$currentdir" | grep -v "/" | dmenu -l $ln -fn $genfont -p 'Pick a file to view permissions:')
 	ls -la $choice | dmenu -fn $genfont -l 1 &> /dev/null
 	main
 }
@@ -146,7 +146,7 @@ clsbkmk () {
 # Allows the user to change to a specified bookmark
 chbkmk () {
 	bkmk=$(cat /home/$USER/.config/dfm/.bkmks)
-	choice=$(echo "$bkmk" | uniq | dmenu -i -l $ln -fn $genfont -p 'Pick a bookmark to change to:')
+	choice=$(echo "$bkmk" | uniq | dmenu -l $ln -fn $genfont -p 'Pick a bookmark to change to:')
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then cd $choice; fi
 	currentdir=$('pwd')
 }
@@ -259,12 +259,15 @@ esac
 }
 
 # Argument Handling
-while [[ "$1" != "" ]]; do
-	case "$1" in
-		-v | --version) shift;echo "	Version $ver"; exit;;
-		-h | --help) shift;helper; exit;;
-		-hv | -vh) shift;helper; echo "	Version $ver"; exit;;
-		*) echo "Not a valid argument.";exit;;
-	esac
-done
-main
+if [[ "$1" != "" ]];then
+	while [[ "$1" != "" ]]; do
+		case "$1" in
+			-v | --version) shift;echo "	Version $ver";;
+			-h | --help) shift;helper;;
+			-hv | -vh) shift;helper; echo "	Version $ver";;
+			*) echo "Not a valid argument.";;
+		esac
+	done
+else
+	main
+fi
