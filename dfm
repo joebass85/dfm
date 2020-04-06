@@ -265,7 +265,7 @@ if [[ "$1" != "" ]];then
 			-v | --version) shift;echo "	Version $ver";;
 			-h | --help) shift;helper;;
 			-hv | -vh) shift;helper; echo "	Version $ver";;
-			*) echo "Not a valid argument.";;
+			*) echo "Not a valid argument.";exit;;
 		esac
 	done
 else
