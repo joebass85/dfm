@@ -20,6 +20,7 @@ edit () {
 	choice=$(ls -Ap $currentdir | grep -v "/" | dmenu -l $ln -p 'Pick a file to edit.' -fn $genfont)
 	if [[ ! "$choice" == "" && "$choice" == "$choice" ]]; then
 		if [[ "$editor" == "vim" || "$editor" == "nano" || "$editor" == "vi" ]]; then
+			# edit this command if your terminal does not use the -e option to execute commands
 			$terminal -e $editor $choice &> /dev/null
 		else
 			$editor $choice &> /dev/null
@@ -103,6 +104,7 @@ execute () {
 	comm=$(echo '' | dmenu -fn $genfont -i -p 'Execute which command?')
 	if [[ ! "$comm" == "" && "$comm" == "$comm" ]]; then
 		echo $comm >> /home/$USER/.config/dfm/.commhist
+		# also change this command if your terminal does not use the -e option to execute commands
 		$terminal -e $comm
 	fi
 	main

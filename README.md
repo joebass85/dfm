@@ -26,3 +26,4 @@ As of Dec. 23, 2019, the disabled fucnctions include:
 ## Notes
 - DFM will not delete/move any files owned by other users/root user.
 - Move can also be used to rename files.
+- Some terminals (like the xfce4-terminal) may require a different execute option than what is default in the script. The user should edit that option in the script on line 24 and 108 of the dfm file.
